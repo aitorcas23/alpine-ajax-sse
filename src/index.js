@@ -1,4 +1,4 @@
-const settings = {
+let settings = {
   mergeStrategy: "replace",
   mapDelimiter: ":",
 };
