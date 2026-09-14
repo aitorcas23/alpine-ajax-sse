@@ -1,4 +1,9 @@
-const Plugin = function (Alpine) {
+const settings = {
+  mergeStrategy: "replace",
+  mapDelimiter: ":",
+};
+
+function SSE(Alpine) {
   if (Alpine.morph) doMorph = Alpine.morph;
 
   Alpine.directive("sse", (el, { expression, value, modifiers }, { evaluate, cleanup }) => {
@@ -32,6 +37,11 @@ const Plugin = function (Alpine) {
         el._x_cleanups.push(end);
       },
   );
+}
+
+SSE.configure = (options) => {
+  settings = Object.assign(settings, options);
+  return SSE;
 };
 
 function newSSE(el, url, targets = undefined, focus = undefined, sync = undefined) {
@@ -259,3 +269,5 @@ class IDError extends DOMException {
     super(`${description} is missing an ID to target.`, "IDError");
   }
 }
+
+export default SSE;
