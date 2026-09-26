@@ -146,7 +146,7 @@ As with Alpine AJAX, you can listen for events to perform additional actions dur
 
 ### Server
 If you don't know how the server should work visit [Sending events from server](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#sending_events_from_the_server).
-The server has three possible response types:
+The server has three possible response types: **sse:html**, **sse:store** and **sse:dispatch**.
 
 #### sse:html
 Respond with the html to replace in the final document.
