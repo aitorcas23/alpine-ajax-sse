@@ -29,7 +29,9 @@ function SSE(Alpine) {
         if (options.target) {
           options.targets = [options.target];
         }
-        const targets = options.target.map((t) => (t.includes(":") ? t.split(":") : [t, t]));
+        const targets = options.target.map((t) =>
+          t.includes(mapDelimiter) ? t.split(mapDelimiter) : [t, t],
+        );
         const end = newSSE(el, url, targets, options.focus, options.sync);
         if (!el._x_cleanups) {
           el._x_cleanups = [];
@@ -92,7 +94,7 @@ function newSSE(el, url, targets = undefined, focus = undefined, sync = undefine
         return;
       }
 
-      const strategy = target._ajax_strategy || "replace"; // No way to access ajax config settings.
+      const strategy = target._ajax_strategy || settings.mergeStrategy; // No way to access ajax config settings.
       const render = newRender(target, content, strategy, focus);
       if (!dispatch(target, "sse:merge", { strategy, content, merge: render })) {
         return;

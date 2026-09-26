@@ -67,6 +67,7 @@ This way you can define all the targets you would like to modify and only respon
 </div>
 ```
 Alpine AJAX supported and unsupported `x-target` features:
+
 | Feature                        | Example                   | Support                | Notes                                                                                  |
 |--------------------------------|---------------------------|------------------------|----------------------------------------------------------------------------------------|
 | Multiple Targets               | `x-target="one two"`      | ✅ Supported           | No error when a target is missing                                                      |
@@ -93,6 +94,7 @@ It can be disabled with `x-sse.nosync`.
 #### Other directives
 Not all directives make sense in the context of SSE messages.
 Here is a table of support for other Alpine AJAX directives.
+
 | Directive     | Support        | Notes                                                                           |
 |---------------|----------------|---------------------------------------------------------------------------------|
 | `x-headers`   | ❌ Unsupported | Javascript `EventSource()` api doesn't support Headers                          |
@@ -114,6 +116,7 @@ This function takes two arguments:
 - Optional **options**.
 
 #### $sse() options
+
 | Option  | Default | Description         |
 |---------|---------|---------------------|
 | target  | `''`    | Same as Alpine AJAX |
@@ -123,6 +126,7 @@ This function takes two arguments:
 
 ### Events
 As with Alpine AJAX, you can listen for events to perform additional actions during the lifecycle of a SSE request:
+
 | Name          | Description |
 |---------------|-------------|
 | `sse:before`  | Fired before the SSE requests is made. If this event is canceled using `$event.preventDefault()` the request will be aborted. |
@@ -133,6 +137,7 @@ As with Alpine AJAX, you can listen for events to perform additional actions dur
 | `sse:after`   | Fired after all SSE events ended. `$event.target` contains the **response** object. In the case of a `sse:html` event it also containes a render array that contains the rendered targets. |
 
 #### Response object
+
 | Key         | Example                                   | Description                                                                                                                       |
 |-------------|-------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|
 | type        | `sse:html`                                | The type of the event. Can be `sse:html`, `sse:store` or `sse:dispatch`.                                                          |
@@ -161,6 +166,7 @@ data: {
 data:   "myStore": "New value"
 data: }
 ```
+
 ```html
 <script>
     document.addEventListener("alpine:init", () => {
@@ -186,6 +192,17 @@ And then listen to it on the frontend.
 The event is sent from the element with `x-sse`, so using the modifier `.window` on the event may be needed.
 ```html
 <div x-sse="/events" @my-event="console.log($event.detail.extra)"></div>
+```
+
+## Configuration
+Unfortunately, this plugin can't read Alpine AJAX configuration, so you'll have to re-configure some parts.
+Alpine AJAX SSE only support `mergeStrategy` and `mapDelimiter` (only for `$sse()`) options.
+
+```javascript
+Alpine.plugin(sse.configure({
+    mergeStrategy: "morph", // default "replace"
+    mapDelimiter: "|", // default ":"
+}))
 ```
 
 ## Thanks
