@@ -41,7 +41,7 @@ The sse request is made as soon as the element with the `x-sse` directive is loa
     You can use `:dynamic` to evaluate an expression which sets the url for the SSE.
     Same as `x-target:dynamic`.
     ```html
-    <div x-data="{url: "/comments"}">
+    <div x-data="{url: '/comments'}">
         <ul id="comments" x-sse:dynamic="url" x-target></ul>
     </div>
     ```
