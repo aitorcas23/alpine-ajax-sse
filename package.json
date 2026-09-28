@@ -1,6 +1,6 @@
 {
   "name": "@aitorcas23/alpine-ajax-sse",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "description": "SSE plugin for alpine + alpine ajax",
   "main": "dist/plugin.cjs.js",
   "module": "dist/plugin.esm.js",
@@ -8,10 +8,10 @@
   "keywords": [],
   "author": "aitorcas23",
   "license": "MIT",
-  "dependencies": {
-    "esbuild": "^0.12.22"
-  },
   "scripts": {
     "build": "node scripts/build.js"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
   }
 }

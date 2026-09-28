@@ -1,39 +1,66 @@
-let fs = require('fs')
-//CDN
-build({
+let fs = require("fs");
+let zlib = require("zlib");
+let esbuild = require("esbuild");
+
+let builds = [
+  {
+    entryPoints: ["builds/cdn.js"],
+    outfile: "dist/cdn.js",
+    bundle: true,
+    platform: "browser",
+  },
+  {
     entryPoints: [`builds/cdn.js`],
-    outfile: `dist/plugin.min.js`,
+    outfile: "dist/cdn.min.js",
     bundle: true,
     minify: true,
-    sourcemap: false,
-    platform: 'browser',
-    define: { CDN: true },
-})
-//Module
-build({
+    platform: "browser",
+    plugins: [size("dist/cdn.min.js")],
+  },
+  {
     entryPoints: [`builds/module.js`],
-    outfile: `dist/plugin.esm.js`,
+    outfile: "dist/module.esm.js",
     bundle: true,
-    bundle: true,
-    platform: 'neutral',
-    mainFields: ['main', 'module'],
-})
-build({
+    platform: "neutral",
+    mainFields: ["module", "main"],
+  },
+  {
     entryPoints: [`builds/module.js`],
-    outfile: `dist/plugin.cjs.js`,
+    outfile: "dist/module.cjs.js",
     bundle: true,
-    target: ['node10.4'],
-    platform: 'node',
-})
+    target: ["node10.4"],
+    platform: "node",
+  },
+];
 
+builds.forEach(async (config) => {
+  if (process.argv.includes("--watch")) {
+    esbuild
+      .context(config)
+      .watch()
+      .catch(() => process.exit(1));
+  } else {
+    esbuild.build(config).catch(() => process.exit(1));
+  }
+});
 
-function build(options){
-    options.define || (options.define = {})
-    options.define['process.env.NODE_ENV'] = process.argv.includes('--watch') ? `'production'` : `'development'`
+function size(file) {
+  return {
+    name: "size",
+    setup(build) {
+      build.onEnd(() => {
+        let size = bytesToSize(zlib.brotliCompressSync(fs.readFileSync(file)).length);
 
-    return require('esbuild').build({
-        watch: process.argv.includes('--watch'),
-        // external: ['alpinejs'],
-        ...options,
-    }).catch(() => process.exit(1))
+        console.log("\x1b[32m%s\x1b[0m", `${file}: ${size}`);
+      });
+    },
+  };
+}
+
+function bytesToSize(bytes) {
+  const sizes = ["Bytes", "kB", "MB", "GB", "TB"];
+  if (bytes === 0) return "n/a";
+  const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10);
+  if (i === 0) return `${bytes} ${sizes[i]}`;
+  return `${(bytes / 1024 ** i).toFixed(1)} ${sizes[i]}`;
 }
