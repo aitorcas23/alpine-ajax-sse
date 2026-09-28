@@ -30,7 +30,7 @@ jobs:
             exit 1
           fi
 
-      - run: npm publish
+      - run: npm stage publish --access public
       # Publish min.js file to releases too
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
