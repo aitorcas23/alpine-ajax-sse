@@ -8,6 +8,10 @@
   "keywords": [],
   "author": "aitorcas23",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aitorcas23/alpine-ajax-sse"
+  },
   "scripts": {
     "build": "node scripts/build.js"
   },
