@@ -5,6 +5,33 @@ This plugin also requires [alpine AJAX](https://alpine-ajax.js.org/).
 To learn more about how SSE works visit [Using server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events).
 
 ## Installation
+You can install this plugin via CDN.
+```html
+<script defer src="https://cdn.jsdelivr.net/npm/@aitorcas23/alpine-ajax-sse/dist/cdn.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/@imacrayon/alpine-ajax/dist/cdn.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs/dist/cdn.min.js"></script>
+```
+Or add the specific version for each part.
+```html
+<script defer src="https://cdn.jsdelivr.net/npm/@aitorcas23/alpine-ajax-sse@0.1.0/dist/cdn.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/@imacrayon/alpine-ajax@0.12.7/dist/cdn.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.17.4/dist/cdn.min.js"></script>
+```
+
+You can also install it as an npm module.
+```bash
+npm install @aitorcas23/alpine-ajax-sse
+```
+
+```javascript
+import Alpine from "alpinejs"
+import ajax from "@imacrayon/alpine-ajax"
+import sse from "@aitorcas23/alpine-ajax-sse"
+
+window.Alpine = Alpine
+Alpine.plugin(ajax)
+Alpine.plugin(sse)
+```
 
 ## Usage
 > [!NOTE]
@@ -208,5 +235,4 @@ Alpine.plugin(sse.configure({
 ## Thanks
 Special thanks to [Alpine.js](https://alpinejs.dev/) and [Alpine AJAX](https://alpine-ajax.js.org/).
 Most of the code was taken and adapted from the Alpine AJAX codebase.
-
-And also to the [Alpine plugin template](https://github.com/victoryoalli/alpinejs-plugin-blueprint).
+The build scripts where also taken from Alpine AJAX.
