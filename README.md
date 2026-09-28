@@ -13,7 +13,7 @@ You can install this plugin via CDN.
 ```
 Or add the specific version for each part.
 ```html
-<script defer src="https://cdn.jsdelivr.net/npm/@aitorcas23/alpine-ajax-sse@0.1.0/dist/cdn.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/@aitorcas23/alpine-ajax-sse@0.1.1/dist/cdn.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/@imacrayon/alpine-ajax@0.12.7/dist/cdn.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.17.4/dist/cdn.min.js"></script>
 ```
